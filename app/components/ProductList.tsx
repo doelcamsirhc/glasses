@@ -8,11 +8,12 @@ interface Product {
   quantity: number
 }
 
-export function ProductList({ products }: { products: Product[] }) {
-  if (!products || products.length === 0) {
-    return <p className="text-gray-600">No products available.</p>
-  }
+interface ProductListProps {
+  products: Product[]
+  onProductUpdated: () => void
+}
 
+export function ProductList({ products, onProductUpdated }: ProductListProps) {
   return (
     <ul className="divide-y divide-gray-200">
       {products.map((product) => (
@@ -24,7 +25,7 @@ export function ProductList({ products }: { products: Product[] }) {
               <p className="mt-1 text-sm text-gray-900">Price: ${product.price.toFixed(2)}</p>
               <p className="mt-1 text-sm text-gray-900">Quantity: {product.quantity}</p>
             </div>
-            <EditProductForm product={product} onCancel={() => {}} />
+            <EditProductForm product={product} onProductUpdated={onProductUpdated} />
           </div>
         </li>
       ))}
