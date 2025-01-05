@@ -7,15 +7,31 @@ import { fetchProducts } from './actions'
 
 export default function Home() {
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   async function refreshProducts() {
-    const fetchedProducts = await fetchProducts()
-    setProducts(fetchedProducts)
+    try {
+      const fetchedProducts = await fetchProducts()
+      setProducts(fetchedProducts)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
     refreshProducts()
   }, [])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>
+  }
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">

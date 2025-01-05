@@ -32,6 +32,12 @@ export async function updateProduct(data: FormData) {
   })
 }
 
+export async function deleteProduct(id: string) {
+  await prisma.product.delete({
+    where: { id },
+  })
+}
+
 export async function fetchProducts() {
   return await prisma.product.findMany()
 }
