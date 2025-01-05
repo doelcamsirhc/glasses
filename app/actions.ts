@@ -4,6 +4,14 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+interface Product {
+  id: string
+  model: string
+  description: string
+  price: number
+  quantity: number
+}
+
 export async function addProduct(data: FormData) {
   const model = data.get('model') as string
   const description = data.get('description') as string
@@ -15,7 +23,7 @@ export async function addProduct(data: FormData) {
   })
 }
 
-export async function getProducts() {
+export async function getProducts(): Promise<Product[]> {
   return await prisma.product.findMany()
 }
 
