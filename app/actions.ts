@@ -38,6 +38,6 @@ export async function deleteProduct(id: string) {
   })
 }
 
-export async function fetchProducts() {
+export async function fetchProducts(): Promise<Product[]> {
   return await prisma.product.findMany()
 }

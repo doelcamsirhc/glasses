@@ -5,10 +5,18 @@ import { ProductForm } from './components/ProductForm'
 import { ProductList } from './components/ProductList'
 import { fetchProducts } from './actions'
 
+interface Product {
+  id: string
+  model: string
+  description: string
+  price: number
+  quantity: number
+}
+
 export default function Home() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   async function refreshProducts() {
     try {
